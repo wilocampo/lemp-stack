@@ -179,7 +179,6 @@ sudo ./lemp.sh
 
 ### 1. Install Nginx
 ```sh
-sudo add-apt-repository -y ppa:nginx/development && sudo apt-get update
 sudo apt-get -y install nginx
 ```
 
@@ -187,28 +186,26 @@ sudo apt-get -y install nginx
 ### 2. Install MariaDB
 ```sh
 sudo apt-get -y install mariadb-server # Or MySQL: sudo apt-get install mysql-server
-sudo service mysql stop # Stop the MySQL if is running.
-sudo mysql_install_db
-sudo service mysql start
 sudo mysql_secure_installation
 ```
 
 
-### 3. Install PHP7.4
+### 3. Install PHP7.4 and remove apache2
 ```sh
 sudo add-apt-repository -y ppa:ondrej/php && sudo apt-get update
 sudo apt-get -y install php7.4
+sudo apt remove apache2 apache2-data
 ```
 
 
 ### 4. Choose and install PHP7.4 modules
 ```sh
 sudo apt-cache search php7.4-*
-sudo apt-get -y install php7.4-fpm php7.4-curl php7.4-gd php7.4-json php7.4-mysql php7.4-sqlite3 php7.4-pgsql php7.4-bz2 php7.4-mbstring php7.4-soap php7.4-xml php7.4-zip
+sudo apt-get -y install php7.4-fpm php7.4-curl php7.4-gd php7.4-json php7.4-mysql php7.4-sqlite3 php7.4-pgsql php7.4-bz2 php7.4-mbstring php7.4-soap php7.4-xml php7.4-zip php7.4-intl
 ```
 
 
-### 5. Check the installed PHP version
+### 5. Check the installed PHP version 
 ```sh
 php -v
 ```
@@ -223,6 +220,9 @@ events {
         worker_connections 1024; # ~ RAM / 2
         multi_accept on;
 }
+
+#### Comment-out gzip
+# gzip on;
 ```
 
 #### Default vhost
